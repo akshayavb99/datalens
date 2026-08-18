@@ -15,7 +15,8 @@ This repo is the starter project for the freeCodeCamp/NHCarrigan Summer
   and analysis functions (`datalens/analysis.py` and `datalens/charts.py`),
   all pandas-based and independently unit-tested.
 - `datalens/cli.py` - a `click`-based CLI that wraps the package functions.
-- `scripts/generate_sample_data.py` - generates the synthetic sample dataset.
+- `scripts/generate_sample_data.py` - generates synthetic datasets in either
+  the canonical or online-orders schema.
 - `data/sample.csv` - ~800 rows of synthetic coffee-shop sales data (with a
   few duplicate rows and missing values baked in on purpose).
 - `notebooks/exploration.ipynb` - a walkthrough of the package on the sample
@@ -103,7 +104,22 @@ date_max: 2026-06-30
 
 ```bash
 python scripts/generate_sample_data.py --rows 800 --output data/sample.csv --seed 42
+
+# Generate the alternate online-orders export.
+python scripts/generate_sample_data.py --rows 800 --schema-type new --seed 42
 ```
+
+The `new` schema writes the raw export to `data/online_orders.csv` by default
+and automatically writes the reconciled canonical data to
+`data/online_orders_reconciled.csv`. The raw export contains `order_id`,
+`order_date` (`MM/DD/YYYY`), `store_location`, `product_category`,
+`product_name`, `items_count`, and `order_total`.
+
+Online orders can be normalized to the canonical schema with
+`datalens.ingest.normalize_online_orders` before combining them with
+`data/sample.csv`. The normalizer derives `unit_price` as
+`order_total / items_count` and preserves missing categories for downstream
+cleaning decisions.
 
 ## The dataset
 
