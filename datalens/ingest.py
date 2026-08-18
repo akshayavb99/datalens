@@ -30,10 +30,10 @@ def normalize_online_orders(df: pd.DataFrame) -> pd.DataFrame:
 
     Mapping decisions:
     ``order_date`` is parsed from ``MM/DD/YYYY`` into ``date``;
-    ``store_location``, ``product_category``, and ``product_name`` map to
-    ``store``, ``category``, and ``item`` respectively; ``items_count`` maps
+    ``store_location``, ``item_category``, and ``item_name`` map to
+    ``store``, ``category``, and ``item`` respectively; ``item_quantity`` maps
     to ``quantity``; ``order_total`` maps to ``revenue``; and ``unit_price``
-    is derived as ``order_total / items_count``. Missing categories are
+    is derived as ``order_total / item_quantity``. Missing categories are
     preserved as missing values so callers can choose whether to drop or fill
     them during cleaning.
 

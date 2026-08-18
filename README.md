@@ -111,14 +111,14 @@ python scripts/generate_sample_data.py --rows 800 --schema-type new --seed 42
 
 The `new` schema writes the raw export to `data/online_orders.csv` by default
 and automatically writes the reconciled canonical data to
-`data/online_orders_reconciled.csv`. The raw export contains `order_id`,
-`order_date` (`MM/DD/YYYY`), `store_location`, `product_category`,
-`product_name`, `items_count`, and `order_total`.
+`data/online_orders_reconciled.csv`. The raw export contains `order_date`
+(`MM/DD/YYYY`), `store_location`, `item_category`, `item_name`,
+`item_quantity`, and `order_total`.
 
 Online orders can be normalized to the canonical schema with
 `datalens.ingest.normalize_online_orders` before combining them with
 `data/sample.csv`. The normalizer derives `unit_price` as
-`order_total / items_count` and preserves missing categories for downstream
+`order_total / item_quantity` and preserves missing categories for downstream
 cleaning decisions.
 
 ## The dataset

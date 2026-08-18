@@ -139,7 +139,6 @@ def write_csv(rows: list[dict], output_path: str, schema_type: str = "basic") ->
         ]
     elif schema_type == "new":
         fieldnames = [
-            "order_id",
             "order_date",
             "store_location",
             "item_category",
@@ -157,6 +156,7 @@ def write_csv(rows: list[dict], output_path: str, schema_type: str = "basic") ->
 
 def reconciled_output_path(output_path: str) -> str:
     """Return the sibling path used for a normalized online-orders export."""
+    
     path = Path(output_path)
     suffix = path.suffix or ".csv"
     return str(path.with_name(f"{path.stem}_reconciled{suffix}"))
